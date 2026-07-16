@@ -1,0 +1,81 @@
+.grafico-demanda-wrapper {
+    display: flex;
+    gap: 12px;
+}
+
+.eje-y-demanda {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+    height: 220px;
+    padding-bottom: 24px; /* deja espacio para alinear con las etiquetas de mes debajo de las barras */
+    flex-shrink: 0;
+}
+
+.eje-y-demanda span {
+    font-size: 11px;
+    color: var(--color-texto-opaco);
+    text-align: right;
+    min-width: 28px;
+    transform: translateY(50%); /* centra cada número contra su línea de referencia */
+}
+
+.grafico-demanda {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+    height: 220px;
+    padding-top: 20px;
+    flex: 1;
+    position: relative;
+}
+
+/* Líneas guía horizontales cada 10%, para que sea fácil leer el valor de una barra */
+.grafico-demanda::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 0;
+    right: 0;
+    bottom: 24px;
+    background-image: repeating-linear-gradient(
+        to top,
+        rgba(255, 255, 255, 0.05) 0,
+        rgba(255, 255, 255, 0.05) 1px,
+        transparent 1px,
+        transparent 10%
+    );
+    pointer-events: none;
+}
+
+.barra-mes {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+.barra-mes .barra {
+    width: 100%;
+    max-width: 26px;
+    height: var(--altura, 10%);
+    background-color: rgba(70, 196, 190, 0.35);
+    border-radius: 4px 4px 0 0;
+    margin-top: auto;
+    transition: background-color var(--transicion-base);
+}
+
+.barra-mes .barra.activa {
+    background-color: rgba(70, 196, 190, 1);
+}
+
+.barra-mes small {
+    margin-top: 10px;
+    font-size: 11px;
+    color: var(--color-texto-opaco);
+    white-space: nowrap;
+}
