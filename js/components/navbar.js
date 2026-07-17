@@ -68,20 +68,26 @@ function inicializarBotonCerrarSesion() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const btnMenu = document.getElementById('btnMenuMovil');
-    const navbar = document.querySelector('.clienteGeneral');
+    const btnAbrir = document.getElementById('btnMenuMovil');
+    const btnCerrar = document.getElementById('btnCerrarMenuMovil');
+    const nav = document.getElementById('landingPage');
+    const overlay = document.getElementById('overlayMenuMovil');
 
-    if (btnMenu && navbar) {
-        btnMenu.addEventListener('click', () => {
-            // Activa o desactiva la clase que muestra los enlaces
-            navbar.classList.toggle('menu-abierto');
-            
-            // Cambia el icono visualmente (☰ a ✕)
-            if(navbar.classList.contains('menu-abierto')) {
-                btnMenu.innerHTML = '✕';
-            } else {
-                btnMenu.innerHTML = '☰';
-            }
-        });
+    if (!btnAbrir || !nav || !overlay) return;
+
+    function abrirMenu() {
+        nav.classList.add('menu-abierto');
+        overlay.classList.add('visible');
+        document.body.classList.add('menu-bloqueado');
     }
+
+    function cerrarMenu() {
+        nav.classList.remove('menu-abierto');
+        overlay.classList.remove('visible');
+        document.body.classList.remove('menu-bloqueado');
+    }
+
+    btnAbrir.addEventListener('click', abrirMenu);
+    btnCerrar?.addEventListener('click', cerrarMenu);
+    overlay.addEventListener('click', cerrarMenu);
 });

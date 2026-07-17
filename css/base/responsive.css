@@ -1,4 +1,3 @@
-
 .btn-hamburguesa {
     display: none;
     background: transparent;
@@ -14,55 +13,82 @@
 .btn-hamburguesa:hover {
     background: rgba(255, 255, 255, 0.1);
 }
-/*ESTAS SON LAS REGLAS PARA EL MENU DE VISTA MOVIL */
+
 @media screen and (max-width: 768px) {
-    
+
     .btn-hamburguesa {
         display: block;
         position: absolute;
-        top: 25px; 
+        top: 25px;
         right: 20px;
-        z-index: 2001; 
+        z-index: 2001;
     }
 
     .barraMenu,
     .registroMenu {
-        display: none; 
+        display: none;
+    }
+
+    /* Fondo oscuro detrás del menú, para cerrar tocando afuera */
+    .overlay-menu-movil {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 9998;
+    }
+
+    .overlay-menu-movil.visible {
+        display: block;
     }
 
     .clienteGeneral.menu-abierto {
-            position: fixed !important;
-            top: 0;
-            right: 0;
-            width: 240px; 
-            height: 100vh;
-            background-color: rgb(15, 53, 62);
-            display: flex !important;
-            flex-direction: column !important;
-            padding: 20px 20px !important;
-            z-index: 9999 !important;
-            overflow-y: hidden !important; 
-        }
+        position: fixed !important;
+        top: 0;
+        right: 0;
+        width: 260px;
+        max-width: 80vw;
+        height: 100vh;
+        background-color: rgb(15, 53, 62);
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between; /* clave: empuja login al fondo sin scroll */
+        padding: 20px !important;
+        box-sizing: border-box;
+        z-index: 9999 !important;
+        overflow-y: auto; /* red de seguridad, ya no "hidden" */
+    }
+
+    /* Agrupa logo + botón cerrar + menú principal para que
+       "space-between" solo separe esto del login de abajo */
+    .clienteGeneral.menu-abierto .grupo-superior-menu {
+        display: flex;
+        flex-direction: column;
+    }
 
     .clienteGeneral.menu-abierto .logoDeco {
-            margin-bottom: 10px !important;
-        }        
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px !important;
+    }
 
     .clienteGeneral.menu-abierto .logoDeco img {
-        width: 40px !important; /* Más compacto */
+        width: 40px !important;
         height: auto !important;
     }
-    
+
     .clienteGeneral.menu-abierto .logoDeco h4 {
         font-size: 15px !important;
         line-height: 1.2;
     }
+
     .clienteGeneral.menu-abierto .barraMenu {
         display: flex;
         flex-direction: column;
         width: 100%;
         gap: 12px !important;
-        margin: 25px 0 0 0 !important; 
+        margin: 25px 0 0 0 !important;
         text-align: left;
         align-items: flex-start;
     }
@@ -72,10 +98,12 @@
         flex-direction: column;
         width: 100%;
         align-items: flex-start;
-        margin-top: auto !important; 
         padding-top: 20px !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        flex-shrink: 0; /* nunca se comprime, siempre visible */
     }
-    .subMenu, 
+
+    .subMenu,
     .desplegableRegistro {
         position: static !important;
         background: transparent;
@@ -85,9 +113,20 @@
         margin-top: 10px;
     }
 
-    /* Animación del sidebar */
-    @keyframes deslizarDesdeDerecha {
-        from { transform: translateX(100%); }
-        to { transform: translateX(0); }
+    /* Botón de cerrar (la "X") dentro del menú */
+    .btn-cerrar-menu-movil {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 6px;
+        color: #fff;
+        font-size: 18px;
+        width: 34px;
+        height: 34px;
+        cursor: pointer;
+        flex-shrink: 0;
+    }
+
+    body.menu-bloqueado {
+        overflow: hidden; /* evita que la página de fondo se mueva con el menú abierto */
     }
 }
