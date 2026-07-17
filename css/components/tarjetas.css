@@ -514,4 +514,23 @@
         visibility: visible !important;
         opacity: 1 !important;
     }
+
+    .tarjetaEvento h3, 
+    .tarjetaEvento p,
+    .tarjetaEquipo h3, 
+    .tarjetaEquipo p,
+    .tarjetaCreatividad h3, 
+    .tarjetaCreatividad p {
+        width: 100% !important; 
+        margin: 0 !important;
+    }
+
+    .tarjetaEvento p, 
+    .tarjetaEquipo p, 
+    .tarjetaCreatividad p {
+        display: block !important;
+        white-space: normal !important; /* Permite que el texto fluya naturalmente */
+        word-break: break-word; /* Evita que palabras muy largas rompan el diseño */
+        margin-top: 5px !important;
+    }
 }
