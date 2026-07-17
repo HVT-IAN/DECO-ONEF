@@ -1,8 +1,4 @@
-/* ==========================================
-   DISEÑO DEL SIDEBAR MÓVIL (Limpio y Compacto)
-   ========================================== */
 
-/* 1. En PC, el botón no existe y tiene diseño nativo */
 .btn-hamburguesa {
     display: none;
     background: transparent;
@@ -18,45 +14,40 @@
 .btn-hamburguesa:hover {
     background: rgba(255, 255, 255, 0.1);
 }
-
-/* ==========================================
-   REGLAS EXCLUSIVAS PARA CELULAR
-   ========================================== */
+/*ESTAS SON LAS REGLAS PARA EL MENU DE VISTA MOVIL */
 @media screen and (max-width: 768px) {
     
-    /* 1. Ubicación del Botón de Hamburguesa Flotante */
     .btn-hamburguesa {
         display: block;
         position: absolute;
-        top: 25px; /* Alineado con tu Navbar normal */
+        top: 25px; 
         right: 20px;
-        z-index: 2001; /* Siempre por encima del menú */
+        z-index: 2001; 
     }
 
-    /* 2. Ocultamos los menús para limpiar la pantalla inicial */
     .barraMenu,
     .registroMenu {
         display: none; 
     }
 
-    /* 3. EL SIDEBAR (El panel lateral abierto) */
     .clienteGeneral.menu-abierto {
-        position: fixed !important;
-        top: 0;
-        right: 0;
-        width: 260px; 
-        height: 100vh; 
-        background-color: rgb(15, 53, 62); 
-        flex-direction: column;
-        align-items: flex-start;
-        /* Redujimos el padding superior para empujar todo más arriba */
-        padding: 40px 25px 25px 25px !important; 
-        z-index: 2000;
-        box-shadow: -10px 0 25px rgba(0,0,0,0.7);
-        animation: deslizarDesdeDerecha 0.3s ease-out forwards;
-    }
+            position: fixed !important;
+            top: 0;
+            right: 0;
+            width: 240px; 
+            height: 100vh;
+            background-color: rgb(15, 53, 62);
+            display: flex !important;
+            flex-direction: column !important;
+            padding: 20px 20px !important;
+            z-index: 9999 !important;
+            overflow-y: hidden !important; 
+        }
 
-    /* 4. Achicamos el logo exclusivamente cuando el sidebar está abierto */
+    .clienteGeneral.menu-abierto .logoDeco {
+            margin-bottom: 10px !important;
+        }        
+
     .clienteGeneral.menu-abierto .logoDeco img {
         width: 40px !important; /* Más compacto */
         height: auto !important;
@@ -66,31 +57,24 @@
         font-size: 15px !important;
         line-height: 1.2;
     }
-
-    /* 5. Mostramos y compactamos los enlaces de navegación */
     .clienteGeneral.menu-abierto .barraMenu {
         display: flex;
         flex-direction: column;
         width: 100%;
-        gap: 12px !important; /* Botones más juntos */
-        margin: 25px 0 0 0 !important; /* Pegados al logo */
+        gap: 12px !important;
+        margin: 25px 0 0 0 !important; 
         text-align: left;
         align-items: flex-start;
     }
 
-    /* 6. El botón de usuario/registro */
     .clienteGeneral.menu-abierto .registroMenu {
         display: flex;
         flex-direction: column;
         width: 100%;
         align-items: flex-start;
-        /* El "margin-top: auto" hace la magia de empujarlo al final sin salir de la pantalla */
         margin-top: auto !important; 
-        padding-top: 15px !important;
-        border-top: 1px solid rgba(255, 255, 255, 0.1); /* Una línea divisoria elegante */
+        padding-top: 20px !important;
     }
-
-    /* 7. Arreglo para que los submenús no floten feo */
     .subMenu, 
     .desplegableRegistro {
         position: static !important;

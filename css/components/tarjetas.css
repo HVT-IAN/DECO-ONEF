@@ -302,7 +302,6 @@
 }
 
 .tarjetaEventoCliente:hover {
-    /* Efecto hover unificado con las tarjetas de inicio */
     transform: translateY(-5px);
     background: var(--cristal-fondo-hover);
     box-shadow: 0 0 15px rgba(50, 140, 165, 0.2);
@@ -396,9 +395,7 @@
     background-color: rgba(243, 156, 18, 0.9);
     color: #1a202c;
 }
-/* =========================================
-   TARJETA DE MÉTRICA (panel de administración - Dashboard)
-   ========================================= */
+
 .tarjeta-metrica {
     background: var(--cristal-fondo);
     backdrop-filter: blur(var(--cristal-blur));
@@ -492,56 +489,29 @@
     color: #ffffff;
 }
 
-/* =========================================================
-   DISEÑO EXCLUSIVO PARA MÓVILES (Tarjetas Horizontales)
-   ========================================================= */
 @media screen and (max-width: 768px) {
-    
-    /* 1. Forzamos 1 sola columna para el contenedor principal en celular */
     .contenedorCaracteristicas {
-        grid-template-columns: 1fr; 
-        gap: 15px;
-        padding: 0 5%; 
+        display: grid !important; 
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
     }
 
-    /* 2. Convertimos las tarjetas en rectángulos usando CSS Grid */
     .tarjetaEvento,
     .tarjetaEquipo,
     .tarjetaCreatividad {
-        display: grid;
-        grid-template-columns: auto 1fr; /* Columna 1: Ajustada al ícono. Columna 2: Toma el resto */
-        grid-template-areas: 
-            "icono titulo"
-            "icono texto";
-        column-gap: 20px; 
-        row-gap: 5px;
-        padding: 20px;
-        align-items: start;
-        text-align: left;
-        height: auto; 
+        display: grid !important;
+        grid-template-columns: 60px 1fr !important; 
+        padding: 15px !important;
+        align-items: center !important;
+        text-align: left !important;
     }
     .tarjetaEvento img,
     .tarjetaEquipo img,
     .tarjetaCreatividad img {
-        grid-area: icono;
-        width: 35px;
-        height: 35px;
-        margin: 0; 
-    }
-    .tarjetaEvento h3, 
-    .tarjetaEquipo h3, 
-    .tarjetaCreatividad h3 {
-        grid-area: titulo;
-        font-size: 16px;
-        margin: 0;
-    }
-
-    .tarjetaEvento p, 
-    .tarjetaEquipo p, 
-    .tarjetaCreatividad p {
-        grid-area: texto;
-        font-size: 13px;
-        margin: 0;
+        width: 40px !important;
+        height: 40px !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
     }
 }
-
