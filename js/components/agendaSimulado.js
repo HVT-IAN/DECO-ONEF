@@ -13,6 +13,38 @@ function obtenerEventosAgendaGuardados() {
     guardarEventosAgenda(porDefecto);
     return porDefecto;
 }
+function obtenerEventosAgendaPorDefecto() {
+    return [
+        {
+            id: 1,
+            titulo: "Boda de Ana y Carlos",
+            tipo: "boda",
+            fecha: fechaRelativaISO(2), // Se programa para dentro de 2 días
+            horaInicio: 14, 
+            horaRecogerMaterial: 23, 
+            duracionHoras: 8,
+            salon: "Salón Diamante",
+            solicitante: "Ana Martínez",
+            materiales: ["Sillas Tiffany", "Centros de mesa", "Arco floral"],
+            estado: "proceso",
+            imagen: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=600&q=80"
+        },
+        {
+            id: 2,
+            titulo: "XV Años Valeria",
+            tipo: "xv",
+            fecha: fechaRelativaISO(0), // Se programa para HOY
+            horaInicio: 18, 
+            horaRecogerMaterial: 2, 
+            duracionHoras: 6,
+            salon: "Jardín Los Pinos",
+            solicitante: "Familia Gómez",
+            materiales: ["Pista iluminada", "Letras gigantes"],
+            estado: "curso",
+            imagen: "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=600&q=80"
+        }
+    ];
+}
 
 function guardarEventosAgenda(lista) {
     localStorage.setItem(CLAVE_ALMACENAMIENTO_AGENDA, JSON.stringify(lista));
