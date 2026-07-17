@@ -14,52 +14,80 @@
 .btn-hamburguesa:hover {
     background: rgba(255, 255, 255, 0.1);
 }
+/*ESTAS SON LAS REGLAS PARA EL MENU DE VISTA MOVIL */
 @media screen and (max-width: 768px) {
-    .contenedorCaracteristicas {
-        display: grid !important; 
-        grid-template-columns: 1fr !important;
-        gap: 15px !important;
-        padding: 0 15px !important;
+    
+    .btn-hamburguesa {
+        display: block;
+        position: absolute;
+        top: 25px; 
+        right: 20px;
+        z-index: 2001; 
     }
 
-    .tarjetaEvento,
-    .tarjetaEquipo,
-    .tarjetaCreatividad {
-        display: grid !important;
-        grid-template-columns: 60px 1fr !important; 
-        padding: 15px !important;
-        align-items: center !important;
-        width: 100% !important; 
-        min-width: 0 !important; 
+    .barraMenu,
+    .registroMenu {
+        display: none; 
     }
 
-    .tarjetaEvento img,
-    .tarjetaEquipo img,
-    .tarjetaCreatividad img {
-        width: 45px !important;
-        height: 45px !important;
-        margin: 0 !important;
+    .clienteGeneral.menu-abierto {
+            position: fixed !important;
+            top: 0;
+            right: 0;
+            width: 240px; 
+            height: 100vh;
+            background-color: rgb(15, 53, 62);
+            display: flex !important;
+            flex-direction: column !important;
+            padding: 20px 20px !important;
+            z-index: 9999 !important;
+            overflow-y: hidden !important; 
+        }
+
+    .clienteGeneral.menu-abierto .logoDeco {
+            margin-bottom: 10px !important;
+        }        
+
+    .clienteGeneral.menu-abierto .logoDeco img {
+        width: 40px !important; /* Más compacto */
+        height: auto !important;
+    }
+    
+    .clienteGeneral.menu-abierto .logoDeco h4 {
+        font-size: 15px !important;
+        line-height: 1.2;
+    }
+    .clienteGeneral.menu-abierto .barraMenu {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 12px !important;
+        margin: 25px 0 0 0 !important; 
+        text-align: left;
+        align-items: flex-start;
     }
 
-    .tarjetaEvento h3, 
-    .tarjetaEvento p,
-    .tarjetaEquipo h3, 
-    .tarjetaEquipo p,
-    .tarjetaCreatividad h3, 
-    .tarjetaCreatividad p {
-        display: block !important;
-        width: 100% !important;
-        max-width: 100% !important; /* Evita que se limite el ancho */
-        margin: 0 !important;
-        padding: 0 !important;
-        white-space: normal !important;
-        overflow: visible !important;
+    .clienteGeneral.menu-abierto .registroMenu {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: flex-start;
+        margin-top: auto !important; 
+        padding-top: 20px !important;
+    }
+    .subMenu, 
+    .desplegableRegistro {
+        position: static !important;
+        background: transparent;
+        box-shadow: none;
+        border: none;
+        padding-left: 15px;
+        margin-top: 10px;
     }
 
-    .tarjetaEvento h3, 
-    .tarjetaEquipo h3, 
-    .tarjetaCreatividad h3 {
-        margin-bottom: 5px !important;
-        line-height: 1.2 !important;
+    /* Animación del sidebar */
+    @keyframes deslizarDesdeDerecha {
+        from { transform: translateX(100%); }
+        to { transform: translateX(0); }
     }
 }

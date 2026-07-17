@@ -490,47 +490,56 @@
 }
 
 @media screen and (max-width: 768px) {
+    /* 1. Forzamos el contenedor padre */
     .contenedorCaracteristicas {
         display: grid !important; 
         grid-template-columns: 1fr !important;
-        gap: 10px !important;
+        gap: 15px !important;
+        padding: 0 15px !important;
     }
-    
+
+    /* 2. Reseteamos el contenedor de la tarjeta para ignorar cualquier flex previo */
     .tarjetaEvento,
     .tarjetaEquipo,
     .tarjetaCreatividad {
         display: grid !important;
-        grid-template-columns: 50px 1fr !important; /* 50px para el icono, 1fr para el texto que sobre */
-        column-gap: 15px !important;
-        align-items: start !important; /* Alinea todo arriba */
-
+        grid-template-columns: 60px 1fr !important; /* 60px para el icono, el resto para texto */
+        padding: 15px !important;
+        align-items: center !important;
+        width: 100% !important; /* Asegura que la tarjeta no sea estrecha */
+        min-width: 0 !important; /* Truco esencial para que el grid no se desborde */
     }
+
+    /* 3. Aseguramos que el ícono no se estire */
     .tarjetaEvento img,
     .tarjetaEquipo img,
     .tarjetaCreatividad img {
-        width: 40px !important;
-        height: 40px !important;
-        display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
+        width: 45px !important;
+        height: 45px !important;
+        margin: 0 !important;
     }
 
+    /* 4. FORZAMOS EL ANCHO DEL TEXTO AL 100% DE LA COLUMNA DISPONIBLE */
     .tarjetaEvento h3, 
     .tarjetaEvento p,
     .tarjetaEquipo h3, 
     .tarjetaEquipo p,
     .tarjetaCreatividad h3, 
     .tarjetaCreatividad p {
-        width: 100% !important; 
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important; /* Evita que se limite el ancho */
         margin: 0 !important;
+        padding: 0 !important;
+        white-space: normal !important;
+        overflow: visible !important;
     }
 
-    .tarjetaEvento p, 
-    .tarjetaEquipo p, 
-    .tarjetaCreatividad p {
-        display: block !important;
-        white-space: normal !important; /* Permite que el texto fluya naturalmente */
-        word-break: break-word; /* Evita que palabras muy largas rompan el diseño */
-        margin-top: 5px !important;
+    /* 5. Aseguramos que el título esté sobre el párrafo */
+    .tarjetaEvento h3, 
+    .tarjetaEquipo h3, 
+    .tarjetaCreatividad h3 {
+        margin-bottom: 5px !important;
+        line-height: 1.2 !important;
     }
 }
