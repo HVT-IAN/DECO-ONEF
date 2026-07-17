@@ -1,83 +1,8 @@
 /* ==========================================
-   DISEÑO DEL SIDEBAR MÓVIL
+   DISEÑO DEL SIDEBAR MÓVIL (Limpio y Compacto)
    ========================================== */
 
-/* En PC, el botón no existe */
-.btn-hamburguesa {
-    display: none;
-}
-
-@media screen and (max-width: 768px) {
-    /* 1. Botón de Hamburguesa Flotante */
-    .btn-hamburguesa {
-        display: block;
-        position: absolute;
-        top: 30px;
-        right: 25px;
-        background: none;
-        border: none;
-        color: white;
-        z-index: 2001; /* Para que siempre esté por encima del menú */
-        cursor: pointer;
-    }
-
-    .btn-hamburguesa i {
-        width: 28px;
-        height: 28px;
-    }
-
-    /* 2. Ocultamos los menús para limpiar la pantalla */
-    .barraMenu,
-    .registroMenu {
-        display: none; 
-    }
-
-    /* 3. EL SIDEBAR (Se activa al tocar el botón) */
-    .clienteGeneral.menu-abierto {
-        position: fixed !important;
-        top: 0;
-        right: 0;
-        width: 260px; /* Ancho del menú lateral */
-        height: 100vh; /* Alto completo de la pantalla */
-        background-color: rgb(15, 53, 62); /* Color de fondo oscuro elegante */
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 90px 30px 30px 30px; /* Espacio arriba para no tapar la X */
-        z-index: 2000;
-        box-shadow: -10px 0 25px rgba(0,0,0,0.7);
-        /* Animación suave de entrada */
-        animation: deslizarDesdeDerecha 0.3s ease-out forwards;
-    }
-
-    /* 4. Mostramos los enlaces pero ahora dentro del Sidebar */
-    .clienteGeneral.menu-abierto .barraMenu,
-    .clienteGeneral.menu-abierto .registroMenu {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        gap: 20px;
-        text-align: left;
-        align-items: flex-start;
-        margin: 0;
-    }
-
-    /* Arreglo para que el submenú se despliegue hacia abajo y no como cuadro flotante */
-    .subMenu, 
-    .desplegableRegistro {
-        position: static !important;
-        background: transparent;
-        box-shadow: none;
-        border: none;
-        padding-left: 15px;
-        margin-top: 10px;
-    }
-
-    @keyframes deslizarDesdeDerecha {
-        from { transform: translateX(100%); }
-        to { transform: translateX(0); }
-    }
-}
-
+/* 1. En PC, el botón no existe y tiene diseño nativo */
 .btn-hamburguesa {
     display: none;
     background: transparent;
@@ -94,57 +19,91 @@
     background: rgba(255, 255, 255, 0.1);
 }
 
-/* 2. Reglas para Celular */
+/* ==========================================
+   REGLAS EXCLUSIVAS PARA CELULAR
+   ========================================== */
 @media screen and (max-width: 768px) {
     
-    /* Permite que la barra principal baje de renglón el contenido */
-    .clienteGeneral {
-        flex-wrap: wrap; 
-        padding: 15px 5%;
-        height: auto;
-    }
-
-    /* Mostramos el botón */
+    /* 1. Ubicación del Botón de Hamburguesa Flotante */
     .btn-hamburguesa {
         display: block;
+        position: absolute;
+        top: 25px; /* Alineado con tu Navbar normal */
+        right: 20px;
+        z-index: 2001; /* Siempre por encima del menú */
     }
 
-    /* Ocultamos los contenedores de enlaces por defecto */
+    /* 2. Ocultamos los menús para limpiar la pantalla inicial */
     .barraMenu,
     .registroMenu {
-        display: none;
-        width: 100%; /* Ocupan todo el ancho del nuevo renglón */
+        display: none; 
+    }
+
+    /* 3. EL SIDEBAR (El panel lateral abierto) */
+    .clienteGeneral.menu-abierto {
+        position: fixed !important;
+        top: 0;
+        right: 0;
+        width: 260px; 
+        height: 100vh; 
+        background-color: rgb(15, 53, 62); 
         flex-direction: column;
-        margin: 0;
-        text-align: center;
-        gap: 15px;
+        align-items: flex-start;
+        /* Redujimos el padding superior para empujar todo más arriba */
+        padding: 40px 25px 25px 25px !important; 
+        z-index: 2000;
+        box-shadow: -10px 0 25px rgba(0,0,0,0.7);
+        animation: deslizarDesdeDerecha 0.3s ease-out forwards;
     }
 
-    .registroMenu {
-        margin-top: 15px;
-        padding-top: 15px;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    /* 4. Achicamos el logo exclusivamente cuando el sidebar está abierto */
+    .clienteGeneral.menu-abierto .logoDeco img {
+        width: 40px !important; /* Más compacto */
+        height: auto !important;
+    }
+    
+    .clienteGeneral.menu-abierto .logoDeco h4 {
+        font-size: 15px !important;
+        line-height: 1.2;
     }
 
-    /* CUANDO JS AGREGA LA CLASE 'menu-abierto', SE MUESTRA TODO */
-    .clienteGeneral.menu-abierto .barraMenu,
+    /* 5. Mostramos y compactamos los enlaces de navegación */
+    .clienteGeneral.menu-abierto .barraMenu {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 12px !important; /* Botones más juntos */
+        margin: 25px 0 0 0 !important; /* Pegados al logo */
+        text-align: left;
+        align-items: flex-start;
+    }
+
+    /* 6. El botón de usuario/registro */
     .clienteGeneral.menu-abierto .registroMenu {
         display: flex;
-        animation: aparecer 0.3s ease-out;
+        flex-direction: column;
+        width: 100%;
+        align-items: flex-start;
+        /* El "margin-top: auto" hace la magia de empujarlo al final sin salir de la pantalla */
+        margin-top: auto !important; 
+        padding-top: 15px !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.1); /* Una línea divisoria elegante */
     }
 
-    /* Ajuste para que los submenús (Servicios) no floten */
+    /* 7. Arreglo para que los submenús no floten feo */
     .subMenu, 
     .desplegableRegistro {
         position: static !important;
         background: transparent;
         box-shadow: none;
         border: none;
-        padding: 10px 0 0 0;
+        padding-left: 15px;
+        margin-top: 10px;
     }
 
-    @keyframes aparecer {
-        from { opacity: 0; transform: translateY(-10px); }
-        to { opacity: 1; transform: translateY(0); }
+    /* Animación del sidebar */
+    @keyframes deslizarDesdeDerecha {
+        from { transform: translateX(100%); }
+        to { transform: translateX(0); }
     }
 }

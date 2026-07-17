@@ -491,3 +491,57 @@
     background-color: rgba(255, 118, 118, 0.85);
     color: #ffffff;
 }
+
+/* =========================================================
+   DISEÑO EXCLUSIVO PARA MÓVILES (Tarjetas Horizontales)
+   ========================================================= */
+@media screen and (max-width: 768px) {
+    
+    /* 1. Forzamos 1 sola columna para el contenedor principal en celular */
+    .contenedorCaracteristicas {
+        grid-template-columns: 1fr; 
+        gap: 15px;
+        padding: 0 5%; 
+    }
+
+    /* 2. Convertimos las tarjetas en rectángulos usando CSS Grid */
+    .tarjetaEvento,
+    .tarjetaEquipo,
+    .tarjetaCreatividad {
+        display: grid;
+        grid-template-columns: auto 1fr; /* Columna 1: Ajustada al ícono. Columna 2: Toma el resto */
+        grid-template-areas: 
+            "icono titulo"
+            "icono texto";
+        column-gap: 20px; 
+        row-gap: 5px;
+        padding: 20px;
+        align-items: start;
+        text-align: left;
+        height: auto; 
+    }
+    .tarjetaEvento img,
+    .tarjetaEquipo img,
+    .tarjetaCreatividad img {
+        grid-area: icono;
+        width: 35px;
+        height: 35px;
+        margin: 0; 
+    }
+    .tarjetaEvento h3, 
+    .tarjetaEquipo h3, 
+    .tarjetaCreatividad h3 {
+        grid-area: titulo;
+        font-size: 16px;
+        margin: 0;
+    }
+
+    .tarjetaEvento p, 
+    .tarjetaEquipo p, 
+    .tarjetaCreatividad p {
+        grid-area: texto;
+        font-size: 13px;
+        margin: 0;
+    }
+}
+
