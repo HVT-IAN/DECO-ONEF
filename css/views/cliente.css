@@ -253,6 +253,7 @@
     }
 
     .contenidoHero h2 {
+        font-family: var(--fuente-principal);
         font-size: 18px; /* Reducido de 26px */
     }
 
