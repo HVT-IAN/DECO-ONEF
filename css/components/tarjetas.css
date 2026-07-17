@@ -495,15 +495,15 @@
         grid-template-columns: 1fr !important;
         gap: 10px !important;
     }
-
+    
     .tarjetaEvento,
     .tarjetaEquipo,
     .tarjetaCreatividad {
         display: grid !important;
-        grid-template-columns: 60px 1fr !important; 
-        padding: 15px !important;
-        align-items: center !important;
-        text-align: left !important;
+        grid-template-columns: 50px 1fr !important; /* 50px para el icono, 1fr para el texto que sobre */
+        column-gap: 15px !important;
+        align-items: start !important; /* Alinea todo arriba */
+
     }
     .tarjetaEvento img,
     .tarjetaEquipo img,
