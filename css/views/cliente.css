@@ -241,3 +241,30 @@
 .solicitudCotizacion a:hover {
     background-color: rgba(96, 151, 167, 0.4);
 }
+
+@media screen and (max-width: 768px) {
+    /* Ajuste del Hero Text para evitar desbordamiento */
+    .contenidoHero h1 {
+        font-size: 36px; /* Reducido de los 68px originales */
+        line-height: 1.1;
+        margin-bottom: 20px;
+        word-wrap: break-word; /* Corta la palabra si es más ancha que la pantalla */
+        hyphens: auto;
+    }
+
+    .contenidoHero h2 {
+        font-size: 18px; /* Reducido de 26px */
+    }
+
+    /* Ajuste de márgenes del contenedor principal */
+    .seccion-hero {
+        min-height: 80vh; /* Da un respiro vertical sin forzar los 600px fijos */
+        padding-top: 40px;
+    }
+
+    /* Reducir títulos de las otras secciones */
+    .servicios h1, 
+    .solicitudCotizacion h1 {
+        font-size: 32px; /* Reducido de 52px */
+    }
+}

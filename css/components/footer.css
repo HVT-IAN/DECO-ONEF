@@ -53,3 +53,21 @@ footer {
 .redesSociales a:hover {
     color: var(--color-texto-blanco);
 }
+
+@media screen and (max-width: 768px) {
+    .generalFooter {
+        grid-template-columns: 1fr; 
+        gap: 40px; 
+        text-align: center; 
+    }
+
+    /* Centrar el contenedor del logo */
+    .logoFooter .logo {
+        justify-content: center;
+    }
+
+    /* Centrar el párrafo de descripción */
+    .logoFooter p {
+        margin: 0 auto;
+    }
+}
