@@ -489,6 +489,11 @@
     color: #ffffff;
 }
 
+.estadoEvento.pendiente {
+    background-color: rgba(255, 193, 7, 0.9);
+    color: #1a202c;
+}
+
 @media screen and (max-width: 768px) {
     .contenedorCaracteristicas {
         display: flex !important;

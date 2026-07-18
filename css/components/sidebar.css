@@ -161,20 +161,59 @@
 }
 
 @media (max-width: 800px) {
+    /* Antes: barra horizontal con overflow-x que cortaba "Inventario" sin ninguna
+       pista visual de que había más contenido a la derecha. Ahora: panel vertical
+       oculto por defecto (fuera de pantalla a la izquierda) que se desliza al
+       togglear el botón hamburguesa del navbar. */
     .sidebar-admin {
-        position: static;
-        width: 100%;
-        height: auto;
-        flex-direction: row;
-        overflow-x: auto;
+        top: 82px; /* justo debajo del navbar-admin, que mide 82px de alto */
+        left: 0;
+        width: 260px;
+        height: calc(100vh - 82px);
+        flex-direction: column;
+        overflow-x: visible;
+        overflow-y: auto;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        z-index: 160; /* por encima del overlay (150), aunque por debajo del navbar (200) ya que no se superponen */
     }
+
+    .sidebar-admin.sidebar-abierto {
+        transform: translateX(0);
+        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.4);
+    }
+
     .nav-sidebar {
-        flex-direction: row;
+        flex-direction: column;
     }
+
     .sidebar-footer {
-        display: none;
+        display: flex; /* antes se ocultaba por falta de espacio en la barra horizontal */
     }
+
     .contenedor-dashboard {
         margin-left: 0;
+    }
+
+    /* Fondo oscuro detrás del panel, para cerrar tocando afuera.
+       Empieza debajo del navbar para que este siga visible e interactivo
+       (el dropdown de perfil, por ejemplo) mientras el sidebar está abierto. */
+    .overlay-sidebar-admin {
+        display: none;
+        position: fixed;
+        top: 82px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.55);
+        z-index: 150; /* entre el navbar (200) y el sidebar (necesita quedar debajo del panel) */
+    }
+
+    .overlay-sidebar-admin.visible {
+        display: block;
+    }
+
+    body.menu-bloqueado {
+        overflow: hidden;
     }
 }

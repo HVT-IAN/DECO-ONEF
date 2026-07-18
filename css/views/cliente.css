@@ -245,7 +245,7 @@
 @media screen and (max-width: 768px) {
     /* Ajuste del Hero Text para evitar desbordamiento */
     .contenidoHero h1 {
-        font-size: 36px; /* Reducido de los 68px originales */
+        font-size: 34px; /* Reducido de los 68px originales */
         line-height: 1.1;
         margin-bottom: 20px;
         word-wrap: break-word; /* Corta la palabra si es más ancha que la pantalla */
@@ -259,13 +259,12 @@
 
     /* Ajuste de márgenes del contenedor principal */
     .seccion-hero {
-        min-height: 80vh; /* Da un respiro vertical sin forzar los 600px fijos */
-        padding-top: 40px;
+        min-height: 70vh; /* Da un respiro vertical sin forzar los 600px fijos */
+        padding-top: 10px;
     }
 
-    /* Reducir títulos de las otras secciones */
     .servicios h1, 
     .solicitudCotizacion h1 {
-        font-size: 32px; /* Reducido de 52px */
-    }
+        font-size: 32px; 
+}
 }

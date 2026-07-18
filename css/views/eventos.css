@@ -87,3 +87,61 @@
     color: var(--color-texto-opaco);
     margin-bottom: 40px;
 }
+
+/* ============================================
+   RESPONSIVE - MOBILE
+   ============================================ */
+@media screen and (max-width: 768px) {
+
+    /* --- HERO --- */
+    .hero {
+        height: 55vh;
+        min-height: 380px;
+        padding-left: 6%;
+        padding-right: 6%;
+    }
+
+    .hero-content h1 {
+        font-size: 42px;
+        letter-spacing: 1px;
+        line-height: 1.05;
+        margin-bottom: 8px;
+    }
+
+    .hero-content p {
+        font-size: 16px;
+    }
+
+    /* --- DESCRIPCION --- */
+    .description {
+        padding: 40px 6% 30px;
+    }
+
+    .desc-header {
+        margin-bottom: 15px;
+    }
+
+    .desc-body p {
+        font-size: 15px;
+        line-height: 1.7;
+        max-width: 100%;
+        margin-left: 0; /* antes 60px: empujaba el texto fuera de vista en pantallas angostas */
+    }
+
+    /* --- CTA --- */
+    .cta {
+        padding: 30px 6% 60px;
+    }
+
+    .cta h2 {
+        font-size: 32px;
+        line-height: 1.1;
+        margin-bottom: 10px;
+        word-wrap: break-word; /* evita que palabras largas como "CONVENCIMOS" se corten */
+    }
+
+    .cta p {
+        font-size: 15px;
+        margin-bottom: 25px;
+    }
+}

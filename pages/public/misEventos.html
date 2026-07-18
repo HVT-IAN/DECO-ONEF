@@ -57,7 +57,6 @@
                             <ul class="desplegableRegistro">
                                 <li class="item-cliente"><a href="#">Mis Eventos</a></li>
                                 <li class="item-decorador"><a href="../admin/dashboard.html">Administrador</a></li>
-                                <li><a href="#">Configuración</a></li>
                                 <li><a href="#" id="botonCerrarSesion" class="textoPequeño">Cerrar sesion</a></li>
                             </ul>
                         </div>
@@ -112,7 +111,7 @@
 
         <div id="modalDetalleEvento" class="modal-overlay oculto">
             <div class="modal-contenido">
-                
+
                 <button id="btnCerrarModal" class="btn-cerrar"><i data-lucide="x"></i></button>
 
                 <div class="modal-cabecera">
@@ -125,25 +124,14 @@
                 </div>
 
                 <div class="modal-cuerpo">
-                    <div class="modal-grid-info">
-                        <div class="caja-info">
-                            <span class="caja-label">Fecha</span>
-                            <span class="caja-valor" id="modalFecha"></span>
-                        </div>
-                        <div class="caja-info">
-                            <span class="caja-label">Ubicación</span>
-                            <span class="caja-valor" id="modalUbicacion"></span>
-                        </div>
-                        <div class="caja-info">
-                            <span class="caja-label">Invitados</span>
-                            <span class="caja-valor" id="modalInvitados"></span>
-                        </div>
+                    <div class="campo-detalle">
+                        <label>Fecha</label>
+                        <p id="modalFecha"></p>
                     </div>
 
-                    <div class="modal-seccion">
-                        <h3>-- Servicios</h3>
-                        <ul class="lista-servicios" id="modalServicios">
-                            </ul>
+                    <div class="campo-detalle">
+                        <label>Ubicación</label>
+                        <p id="modalUbicacion"></p>
                     </div>
 
                     <div class="modal-disenador">
@@ -152,12 +140,6 @@
                             <span class="label">Diseñador Asignado</span>
                             <span class="nombre" id="modalNombreDisenador"></span>
                         </div>
-                    </div>
-
-                    <div class="modal-seccion">
-                        <h3>-- Galeria de evento</h3>
-                        <div class="modal-galeria" id="modalGaleria">
-                            </div>
                     </div>
                 </div>
             </div>
@@ -192,9 +174,10 @@
 
         <script src="https://unpkg.com/lucide@latest"></script>
         <script>lucide.createIcons();</script>
-        
         <script src="../../js/core/localStorage.js"></script>
-        <script src="../../js/views/misEventos.js"></script>
+        <script src="../../js/components/solicitudesSimulado.js"></script>
+        <script src="../../js/components/agendaSimulado.js"></script>
         <script src="../../js/components/navbar.js"></script>
+        <script src="../../js/views/misEventos.js"></script>
     </body>
 </html>

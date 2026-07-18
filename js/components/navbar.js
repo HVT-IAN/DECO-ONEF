@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     actualizarNavbar();
     inicializarBotonCerrarSesion();
+    inicializarMenuMovil();
 });
 
 function actualizarNavbar() {
@@ -8,7 +9,7 @@ function actualizarNavbar() {
     const sinRegistro = document.getElementById('sinRegistro');
     const conRegistro = document.getElementById('conRegistro');
 
-    if (!sinRegistro || !conRegistro) return; // la página no tiene este navbar
+    if (!sinRegistro || !conRegistro) return;
 
     if (token) {
         sinRegistro.classList.add('oculto');
@@ -34,14 +35,6 @@ function actualizarNombreUsuario(nombre) {
     }
 }
 
-/**
- * Muestra u oculta las opciones del menú desplegable según el rol.
- * Espera que el HTML tenga:
- *   <li class="item-cliente">...</li>    -> solo clientes
- *   <li class="item-decorador">...</li>  -> solo decoradores/admin
- * y usa la clase utilitaria .ocultar-por-rol (definida en cliente.css)
- * para esconder la que no corresponda.
- */
 function configurarMenuPorRol(usuario) {
     const itemsCliente = document.querySelectorAll('.item-cliente');
     const itemsDecorador = document.querySelectorAll('.item-decorador');
@@ -50,7 +43,6 @@ function configurarMenuPorRol(usuario) {
         itemsCliente.forEach(item => item.classList.add('ocultar-por-rol'));
         itemsDecorador.forEach(item => item.classList.remove('ocultar-por-rol'));
     } else {
-        // Cliente por defecto si el rol no es reconocido
         itemsCliente.forEach(item => item.classList.remove('ocultar-por-rol'));
         itemsDecorador.forEach(item => item.classList.add('ocultar-por-rol'));
     }
@@ -62,32 +54,45 @@ function inicializarBotonCerrarSesion() {
 
     boton.addEventListener('click', (evento) => {
         evento.preventDefault();
-        cerrarSesionSimulado(); 
+        cerrarSesionSimulado();
         window.location.reload();
     });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+// ==========================================================
+// MENÚ MÓVIL — única fuente de verdad para abrir/cerrar
+// ==========================================================
+function inicializarMenuMovil() {
     const btnAbrir = document.getElementById('btnMenuMovil');
-    const btnCerrar = document.getElementById('btnCerrarMenuMovil');
-    const nav = document.getElementById('landingPage');
-    const overlay = document.getElementById('overlayMenuMovil');
+    const btnCerrar = document.getElementById('btnCerrarMenuMovil'); // puede no existir, se maneja abajo
+    const nav = document.querySelector('.clienteGeneral');
+    const overlay = document.getElementById('overlayMenuMovil'); // puede no existir
 
-    if (!btnAbrir || !nav || !overlay) return;
+    if (!btnAbrir || !nav) {
+        console.warn('Menú móvil: falta #btnMenuMovil o .clienteGeneral en el HTML.');
+        return;
+    }
 
     function abrirMenu() {
         nav.classList.add('menu-abierto');
-        overlay.classList.add('visible');
+        overlay?.classList.add('visible');
         document.body.classList.add('menu-bloqueado');
+        btnAbrir.innerHTML = '✕';
     }
 
     function cerrarMenu() {
         nav.classList.remove('menu-abierto');
-        overlay.classList.remove('visible');
+        overlay?.classList.remove('visible');
         document.body.classList.remove('menu-bloqueado');
+        btnAbrir.innerHTML = '☰';
     }
 
-    btnAbrir.addEventListener('click', abrirMenu);
+    // Un solo listener en el botón — decide abrir o cerrar según el estado actual
+    btnAbrir.addEventListener('click', () => {
+        const estaAbierto = nav.classList.contains('menu-abierto');
+        estaAbierto ? cerrarMenu() : abrirMenu();
+    });
+
     btnCerrar?.addEventListener('click', cerrarMenu);
-    overlay.addEventListener('click', cerrarMenu);
-});
+    overlay?.addEventListener('click', cerrarMenu);
+}

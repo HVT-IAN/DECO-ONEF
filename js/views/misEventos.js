@@ -1,6 +1,4 @@
-// ==========================================
-// 1. CAPA DE DATOS
-// ==========================================
+
 const EventosService = {
     async obtenerEventosCliente() {
         const correo = localStorage.getItem('usuarioCorreo');
@@ -30,7 +28,6 @@ function mapearSolicitudATarjeta(solicitud) {
         return construirTarjeta(solicitud, 'Pendiente', 'pendiente', solicitud.salonDeseado || 'Por definir', '—');
     }
 
-    // Caso 3: aprobada -> buscamos el evento real ya creado en la agenda
     const agendaData = localStorage.getItem('deco_one_agenda_simulada');
     const eventosAgenda = agendaData ? JSON.parse(agendaData) : [];
     const eventoReal = eventosAgenda.find(e => e.solicitudId === solicitud.id);
@@ -61,11 +58,8 @@ function construirTarjeta(solicitud, estadoTexto, claseEstado, salon, disenador)
         claseEstado: claseEstado,
         fechaFormateada: formatearFechaLargaCliente(solicitud.fechaEvento),
         salon: salon,
-        invitados: 'Por confirmar',
         disenador: disenador,
-        imagenUrl: solicitud.imagen,
-        servicios: [solicitud.ideas],
-        galeria: []
+        imagenUrl: solicitud.imagen
     };
 }
 
@@ -75,9 +69,6 @@ function formatearFechaLargaCliente(fechaISO) {
     return `${Number(dia)} de ${meses[Number(mes) - 1]} del ${anio}`;
 }
 
-// ==========================================
-// 2. CAPA DE VISTA (Renderizado, filtros, resumen y Modal)
-// ==========================================
 const UIEventos = {
     contenedorGrid: document.getElementById('gridEventos'),
     modal: document.getElementById('modalDetalleEvento'),
@@ -159,21 +150,9 @@ const UIEventos = {
 
         document.getElementById('modalFecha').innerText = evento.fechaFormateada;
         document.getElementById('modalUbicacion').innerText = evento.salon;
-        document.getElementById('modalInvitados').innerText = evento.invitados;
 
         document.getElementById('modalNombreDisenador').innerText = evento.disenador;
         document.getElementById('modalAvatarDisenador').innerText = evento.disenador.charAt(0);
-
-        const ulServicios = document.getElementById('modalServicios');
-        ulServicios.innerHTML = '';
-        evento.servicios.forEach(serv => {
-            ulServicios.innerHTML += `<li><i data-lucide="check-circle-2"></i> ${serv}</li>`;
-        });
-
-        const divGaleria = document.getElementById('modalGaleria');
-        divGaleria.innerHTML = evento.galeria.length > 0
-            ? evento.galeria.map(img => `<img src="${img}" alt="Foto galería">`).join('')
-            : '<p style="color:var(--color-texto-opaco); font-size: 13px;">Las fotos estarán disponibles después del evento.</p>';
 
         if (window.lucide) lucide.createIcons();
         this.modal.classList.remove('oculto');
@@ -191,9 +170,6 @@ const UIEventos = {
     }
 };
 
-// ==========================================
-// 3. CONTROLADOR PRINCIPAL
-// ==========================================
 document.addEventListener('DOMContentLoaded', async () => {
     UIEventos.configurarCierreModal();
     const eventos = await EventosService.obtenerEventosCliente();

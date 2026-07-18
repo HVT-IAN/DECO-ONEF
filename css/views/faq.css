@@ -88,3 +88,26 @@
 .opciones-desplegables li:hover {
     background: rgba(255, 255, 255, 0.15);
 }
+
+@media screen and (max-width: 768px) {
+
+    .tituloServicios {
+        padding: 30px 6% 20px;
+    }
+
+    .tituloServicios p {
+        font-size: 12px;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+    .tituloServicios p::before {
+        width: 30px;
+    }
+
+    .tituloServicios h1 {
+        font-size: 30px;
+        line-height: 1.15;
+        letter-spacing: 0.5px;
+    }
+}

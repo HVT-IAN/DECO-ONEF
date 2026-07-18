@@ -64,3 +64,47 @@
     margin-bottom: 40px;
     text-transform: uppercase;
 }
+
+@media screen and (max-width: 768px) {
+
+    .titulosContacto {
+        padding: 30px 6% 25px;
+    }
+
+    .titulosContacto p {
+        font-size: 12px;
+        gap: 10px;
+        margin-bottom: 8px;
+    }
+
+    .titulosContacto p::before {
+        width: 30px;
+    }
+
+    .titulosContacto h1 {
+        font-size: 32px;
+        line-height: 1.15;
+    }
+
+    .seccionContactos {
+        gap: 20px;
+        padding: 0 6% 40px;
+    }
+
+    .contenedorInfoDecoOne,
+    .contenedorinfoCliente {
+        margin-top: 20px;
+        min-width: 100%;
+    }
+
+    /* --- FAQ --- */
+    .seccionFAQ {
+        padding: 20px 6% 50px;
+    }
+
+    .seccionFAQ h1 {
+        font-size: 28px;
+        line-height: 1.15;
+        margin-bottom: 20px;
+    }
+}

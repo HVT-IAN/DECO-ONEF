@@ -16,10 +16,32 @@
 
 @media screen and (max-width: 768px) {
 
+    .clienteGeneral {
+        padding-top: 15px !important; 
+        display: flex !important;
+        align-items: flex-start !important; 
+    }
+
+    .clienteGeneral .logoDeco {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    .clienteGeneral .logoDeco img {
+        width: 45px !important; 
+        height: auto !important;
+    }
+
+    .clienteGeneral .logoDeco h4 {
+        font-size: 16px !important;
+        line-height: 1.2 !important;
+        margin-left: 10px !important; 
+    }
+
     .btn-hamburguesa {
         display: block;
         position: absolute;
-        top: 25px;
+        top: 35px;
         right: 20px;
         z-index: 2001;
     }
@@ -29,7 +51,6 @@
         display: none;
     }
 
-    /* Fondo oscuro detrás del menú, para cerrar tocando afuera */
     .overlay-menu-movil {
         display: none;
         position: fixed;
@@ -42,6 +63,14 @@
         display: block;
     }
 
+    .clienteGeneral.menu-abierto,
+    .clienteGeneral.menu-abierto li{
+        font-family: var(--fuente-principal);
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+
     .clienteGeneral.menu-abierto {
         position: fixed !important;
         top: 0;
@@ -52,23 +81,21 @@
         background-color: rgb(15, 53, 62);
         display: flex !important;
         flex-direction: column !important;
-        justify-content: space-between; /* clave: empuja login al fondo sin scroll */
-        padding: 20px !important;
+        padding: 40px 20px 400px !important;
         box-sizing: border-box;
         z-index: 9999 !important;
-        overflow-y: auto; /* red de seguridad, ya no "hidden" */
+        overflow-y: auto; 
+        align-items: flex-start;
     }
-
-    /* Agrupa logo + botón cerrar + menú principal para que
-       "space-between" solo separe esto del login de abajo */
-    .clienteGeneral.menu-abierto .grupo-superior-menu {
+    .clienteGeneral.menu-abierto .grupo-superior-menu { 
         display: flex;
         flex-direction: column;
     }
 
     .clienteGeneral.menu-abierto .logoDeco {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
+        gap: 10px;
         align-items: center;
         margin-bottom: 10px !important;
     }
@@ -81,6 +108,7 @@
     .clienteGeneral.menu-abierto .logoDeco h4 {
         font-size: 15px !important;
         line-height: 1.2;
+        margin-right: auto !important;
     }
 
     .clienteGeneral.menu-abierto .barraMenu {
@@ -88,9 +116,9 @@
         flex-direction: column;
         width: 100%;
         gap: 12px !important;
-        margin: 25px 0 0 0 !important;
+        margin: 25px px 0 0 !important;
         text-align: left;
-        align-items: flex-start;
+        align-items: flex-start
     }
 
     .clienteGeneral.menu-abierto .registroMenu {
@@ -100,7 +128,7 @@
         align-items: flex-start;
         padding-top: 20px !important;
         border-top: 1px solid rgba(255, 255, 255, 0.1);
-        flex-shrink: 0; /* nunca se comprime, siempre visible */
+        flex-shrink: 0; 
     }
 
     .subMenu,
@@ -108,12 +136,11 @@
         position: static !important;
         background: transparent;
         box-shadow: none;
-        border: none;
+        border: var(--cristal-borde)    ;
         padding-left: 15px;
         margin-top: 10px;
     }
 
-    /* Botón de cerrar (la "X") dentro del menú */
     .btn-cerrar-menu-movil {
         background: transparent;
         border: 1px solid rgba(255, 255, 255, 0.3);
@@ -127,6 +154,136 @@
     }
 
     body.menu-bloqueado {
-        overflow: hidden; /* evita que la página de fondo se mueva con el menú abierto */
+        overflow: hidden;
+    }
+
+    .encabezado-servicios { 
+        display: flex !important;
+        flex-wrap: wrap !important; 
+        justify-content: space-between !important;
+        align-items: flex-end !important;
+        margin-bottom: 25px !important;
+        padding-right: 15px !important; 
+    }
+
+    .texto-chico-servicios { 
+        width: 100% !important; /* Lo obliga a usar su propio renglón */
+        display: block !important;
+        margin-bottom: 5px !important;
+    }
+
+    /* 3. El título principal "NUESTROS SERVICIOS" */
+    .titulo-servicios { 
+        width: auto !important;
+        max-width: 70% !important; 
+        font-size: 28px !important; 
+        line-height: 1.1 !important;
+        margin: 0 !important;
+    }
+
+    /* 4. El enlace "Ver todos ->" apuntando a tu clase real */
+    .verTodosIndex { 
+        transform: none !important; /* Limpiamos cualquier traslación previa */
+        white-space: nowrap !important; /* Mantiene la flecha pegada al texto */
+        margin-bottom: 5px !important; 
+    }
+
+
+
+
+}
+
+
+@media screen and (max-width: 768px) {
+    
+    .servicios { 
+        display: flex !important;
+        flex-wrap: nowrap !important; 
+        overflow-x: auto !important;  
+        overflow-y: hidden !important;
+        gap: 10px !important;
+        padding-bottom: 20px !important; 
+        padding: 20px;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch; 
+        scrollbar-width: none; 
+    }
+
+    .servicios ::-webkit-scrollbar {
+        display: none;
+    }
+
+    .contSericioBoda, .tarjetaXV, .tarjetaFInfantiles { 
+        flex: 0 0 85% !important; 
+        scroll-snap-align: center !important; 
+        max-width: 95% !important; 
+    }
+
+    .verTodosIndex { 
+        display: block !important;
+        text-align: right !important;
+        transform: translateY(-35px) !important; 
+        position: relative;
+        z-index: 10;
+        margin-bottom: -20px !important; 
+    }
+
+}
+
+@media screen and (max-width: 768px) {
+
+    .cuadrosServicios {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 20px !important;
+        padding: 30px 3% 30px 3% !important;
+    }
+
+    .cuadroBodas {
+        display: grid !important;
+        grid-template-columns: 100px 1fr !important;
+        grid-template-rows: auto !important;
+        align-items: center !important;
+        gap: 5px 15px !important;
+
+        padding: 0 !important;           
+        overflow: hidden !important;     
+        border-radius: 16px !important;  
+    }
+
+    .cuadroBodas img {
+        grid-column: 1 !important;
+        grid-row: 1 / 4 !important;
+
+        width: 100px !important;
+        height: 100% !important;         /* en vez de una altura fija en px */
+        min-height: 100% !important;
+        object-fit: cover !important;
+
+        border-radius: 0 !important;     /* el recorte lo hace el overflow:hidden de la tarjeta */
+        margin: 0 !important;
+    }
+
+    .cuadroBodas h4 {
+        grid-column: 2 !important;
+        grid-row: 1 !important;
+        margin: 0 !important;
+        padding: 12px 15px 0 0 !important;
+    }
+
+    .cuadroBodas p {
+        grid-column: 2 !important;
+        grid-row: 2 !important;
+        margin: 0 !important;
+        padding: 0 15px 0 0 !important;
+        font-size: 0.85rem !important;
+    }
+
+    .cuadroBodas a {
+        grid-column: 2 !important;
+        grid-row: 3 !important;
+        margin: 0 !important;
+        padding: 0 15px 12px 0 !important;
+        text-decoration: none;
     }
 }
