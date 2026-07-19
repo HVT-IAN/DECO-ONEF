@@ -494,6 +494,11 @@
     color: #1a202c;
 }
 
+.estadoEvento.cancelado {
+    background-color: rgba(150, 150, 150, 0.9);
+    color: #1a202c;
+}
+
 @media screen and (max-width: 768px) {
     .contenedorCaracteristicas {
         display: flex !important;

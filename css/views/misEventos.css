@@ -414,6 +414,32 @@
     color: var(--color-texto-blanco);
 }
 
+.fila-presupuesto {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 18px; /* el mismo espaciado que ya usan los .campo-detalle individuales */
+}
+
+.fila-presupuesto .campo-detalle {
+    margin-bottom: 0; /* el margen ya lo da .fila-presupuesto como grupo completo */
+}
+
+.fila-presupuesto .campo-detalle p {
+    font-weight: 600;
+}
+
+#modalSaldoPendiente {
+    color: rgba(255, 193, 7, 1); /* mismo tono que .estadoEvento.pendiente, para que resalte lo que falta por pagar */
+}
+
+@media screen and (max-width: 480px) {
+    .fila-presupuesto {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+}
+
 .modal-disenador {
     display: flex;
     align-items: center;

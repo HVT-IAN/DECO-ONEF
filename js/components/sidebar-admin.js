@@ -80,4 +80,9 @@ function inicializarMenuMovilAdmin() {
     sidebar.querySelectorAll('.item-nav[href]').forEach(link => {
         link.addEventListener('click', cerrarMenu);
     });
+
+    // Lo mismo para los links del perfil (Ir a Landing Page, Cerrar Sesión)
+    sidebar.querySelectorAll('.sidebar-footer-movil a').forEach(link => {
+        link.addEventListener('click', cerrarMenu);
+    });
 }

@@ -150,6 +150,69 @@
     background-color: rgba(255, 255, 255, 0.05);
 }
 
+/* ============================================
+   PERFIL DENTRO DEL SIDEBAR — solo mobile.
+   En desktop el perfil ya vive en el navbar, así que esto
+   permanece oculto hasta el breakpoint de 800px.
+   ============================================ */
+.sidebar-footer-movil {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: auto;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 16px;
+}
+
+.perfil-sidebar-movil {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 6px 12px 14px;
+}
+
+.perfil-sidebar-movil .nombre-admin {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-texto-blanco);
+}
+
+.sidebar-footer-movil a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--color-texto-opaco);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 12px;
+    border-radius: 8px;
+    transition: all var(--transicion-base);
+}
+
+.sidebar-footer-movil a svg,
+.sidebar-footer-movil a i {
+    width: 18px;
+    height: 18px;
+}
+
+.sidebar-footer-movil a:hover {
+    color: var(--color-texto-blanco);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.sidebar-footer-movil a.text-danger {
+    color: #ff7676;
+}
+
+/* Refuerzo: garantiza que este bloque quede oculto en desktop
+   incluso si algún otro estilo llegara a pisar la regla base de arriba. */
+@media (min-width: 801px) {
+    .sidebar-footer-movil {
+        display: none !important;
+    }
+}
+
 /* El contenido se corre a la derecha del sidebar fijo */
 .contenedor-dashboard {
     margin-left: 260px;
@@ -187,10 +250,6 @@
         flex-direction: column;
     }
 
-    .sidebar-footer {
-        display: flex; /* antes se ocultaba por falta de espacio en la barra horizontal */
-    }
-
     .contenedor-dashboard {
         margin-left: 0;
     }
@@ -215,5 +274,9 @@
 
     body.menu-bloqueado {
         overflow: hidden;
+    }
+
+    .sidebar-footer-movil {
+        display: flex;
     }
 }

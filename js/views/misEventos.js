@@ -1,4 +1,6 @@
-
+// ==========================================
+// 1. CAPA DE DATOS
+// ==========================================
 const EventosService = {
     async obtenerEventosCliente() {
         const correo = localStorage.getItem('usuarioCorreo');
@@ -28,6 +30,7 @@ function mapearSolicitudATarjeta(solicitud) {
         return construirTarjeta(solicitud, 'Pendiente', 'pendiente', solicitud.salonDeseado || 'Por definir', '—');
     }
 
+    // Caso 3: aprobada -> buscamos el evento real ya creado en la agenda
     const agendaData = localStorage.getItem('deco_one_agenda_simulada');
     const eventosAgenda = agendaData ? JSON.parse(agendaData) : [];
     const eventoReal = eventosAgenda.find(e => e.solicitudId === solicitud.id);
@@ -38,28 +41,42 @@ function mapearSolicitudATarjeta(solicitud) {
 
     // Usamos la MISMA función que usa el panel del decorador — ya no hay dos copias divergentes
     const estadoCalculado = calcularEstadoEvento(eventoReal);
-    const mapaClaseCliente = { proceso: 'proceso', curso: 'curso', terminado: 'completado' };
+    // Se agrega 'cancelado' que faltaba: sin esta entrada, un evento cancelado
+    // manualmente por el admin (estadoManual !== 'auto') rompía la píldora de estado
+    // igual que pasaba antes con 'pendiente'.
+    const mapaClaseCliente = { proceso: 'proceso', curso: 'curso', terminado: 'completado', cancelado: 'cancelado' };
 
     return construirTarjeta(
         solicitud,
         estadoCalculado.texto,
         mapaClaseCliente[estadoCalculado.clase],
         eventoReal.salon || solicitud.salonDeseado,
-        'Decorador Asignado'
+        'Decorador Asignado',
+        // TODO(conexión backend): hasta que agendaSimulado.js/el backend real
+        // devuelvan estos valores, se muestran en 0 (ver nota en construirTarjeta)
+        eventoReal.presupuestoTotal ?? 0,
+        eventoReal.totalAbonado ?? 0
     );
 }
 
-function construirTarjeta(solicitud, estadoTexto, claseEstado, salon, disenador) {
+function construirTarjeta(solicitud, estadoTexto, claseEstado, salon, disenador, presupuestoTotal = 0, totalAbonado = 0) {
     return {
         id: solicitud.id,
         tipo: solicitud.tipoEvento,
         titulo: `${solicitud.tipoEvento} de ${solicitud.nombre}`,
         estado: estadoTexto,
         claseEstado: claseEstado,
-        fechaFormateada: formatearFechaLargaCliente(solicitud.fechaEvento),
+        // Renombrado de "fechaEvento" a "fechaEventoDeseada" (ver schema.sql)
+        fechaFormateada: formatearFechaLargaCliente(solicitud.fechaEventoDeseada),
         salon: salon,
         disenador: disenador,
-        imagenUrl: solicitud.imagen
+        imagenUrl: solicitud.imagen,
+        // TODO(conexión backend): presupuestoTotal viene de eventos.presupuesto_total;
+        // totalAbonado viene de SUM(abonos.monto) WHERE id_evento = X (ver schema.sql).
+        // Mientras no exista ese dato real (solicitud pendiente/rechazada, o evento
+        // recién aprobado sin presupuesto capturado aún), se muestra en 0.
+        presupuestoTotal: presupuestoTotal,
+        totalAbonado: totalAbonado
     };
 }
 
@@ -69,6 +86,9 @@ function formatearFechaLargaCliente(fechaISO) {
     return `${Number(dia)} de ${meses[Number(mes) - 1]} del ${anio}`;
 }
 
+// ==========================================
+// 2. CAPA DE VISTA (Renderizado, filtros, resumen y Modal)
+// ==========================================
 const UIEventos = {
     contenedorGrid: document.getElementById('gridEventos'),
     modal: document.getElementById('modalDetalleEvento'),
@@ -151,6 +171,16 @@ const UIEventos = {
         document.getElementById('modalFecha').innerText = evento.fechaFormateada;
         document.getElementById('modalUbicacion').innerText = evento.salon;
 
+        // El saldo pendiente NUNCA se guarda como dato — se calcula aquí mismo
+        // (presupuesto menos lo abonado), igual que ya se documenta en schema.sql,
+        // para que nunca pueda desincronizarse de los dos números reales.
+        const saldoPendiente = evento.presupuestoTotal - evento.totalAbonado;
+        const formatoMXN = (n) => `$${n.toLocaleString('es-MX')} MXN`;
+
+        document.getElementById('modalPresupuestoTotal').innerText = formatoMXN(evento.presupuestoTotal);
+        document.getElementById('modalTotalAbonado').innerText = formatoMXN(evento.totalAbonado);
+        document.getElementById('modalSaldoPendiente').innerText = formatoMXN(saldoPendiente);
+
         document.getElementById('modalNombreDisenador').innerText = evento.disenador;
         document.getElementById('modalAvatarDisenador').innerText = evento.disenador.charAt(0);
 
@@ -170,6 +200,9 @@ const UIEventos = {
     }
 };
 
+// ==========================================
+// 3. CONTROLADOR PRINCIPAL
+// ==========================================
 document.addEventListener('DOMContentLoaded', async () => {
     UIEventos.configurarCierreModal();
     const eventos = await EventosService.obtenerEventosCliente();

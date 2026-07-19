@@ -79,3 +79,39 @@
     color: var(--color-texto-opaco);
     white-space: nowrap;
 }
+
+@media (max-width: 768px) {
+    /* 1. Ocultamos el Eje Y y las líneas guía del fondo para el look minimalista */
+    .eje-y-demanda {
+        display: none; 
+    }
+    
+    .grafico-demanda::before {
+        display: none; 
+    }
+
+    /* 2. Reducimos el contenedor de la gráfica para que sea compacta */
+    .grafico-demanda {
+        height: 140px; /* Más bajita, como un sparkline real */
+        padding-top: 10px;
+        gap: 8px; /* Barras más juntas */
+    }
+
+    /* 3. Hacemos que las barras sean líneas verticales muy delgadas */
+    .barra-mes .barra {
+        max-width: 8px; 
+        border-radius: 4px;
+    }
+
+    /* 4. El truco maestro: Convertir "Enero" en "E" ocultando el resto del texto */
+    .barra-mes small {
+        display: block; /* Requisito para que ::first-letter funcione */
+        font-size: 0; /* Oculta la palabra completa */
+        margin-top: 10px;
+    }
+
+    .barra-mes small::first-letter {
+        font-size: 11px; /* Mostramos únicamente la primera letra */
+        font-weight: bold;
+    }
+}

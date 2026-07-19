@@ -73,7 +73,10 @@ document.addEventListener('DOMContentLoaded', () => {
             nombre: document.getElementById('inputNombreFaq').value.trim(),
             correo: document.getElementById('inputCorreoFaq').value.trim(),
             tipoEvento: document.getElementById('tipoEventoValor').value,
-            fechaEvento: document.getElementById('inputFechaFaq').value,
+            // Renombrado de "fechaEvento" a "fechaEventoDeseada": en el esquema real,
+            // esto es lo que el cliente PIDIÓ; solo se vuelve "fecha_evento" definitiva
+            // en la tabla eventos cuando el decorador aprueba la solicitud.
+            fechaEventoDeseada: document.getElementById('inputFechaFaq').value,
             salonDeseado: document.getElementById('inputSalonFaq').value.trim(),
             ideas: document.getElementById('inputIdeasFaq').value.trim() || 'Sin detalles adicionales.'
         };
@@ -88,6 +91,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             await crearSolicitudDesdeContacto(nuevaSolicitud);
+            // NOTA: la creación automática del usuario por correo (si no existe cuenta
+            // todavía) ahora la maneja el backend Javalin al recibir el POST de la
+            // solicitud — el front solo manda los datos, sin lógica de sesión propia.
             localStorage.setItem("usuarioCorreo", nuevaSolicitud.correo)
             alert('¡Gracias! Tu solicitud fue enviada. Te contactaremos pronto y podrás ver el estado en "Mis Eventos".');
             formulario.reset();

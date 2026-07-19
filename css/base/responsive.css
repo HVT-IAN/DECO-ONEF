@@ -287,3 +287,137 @@
         text-decoration: none;
     }
 }
+
+@media (max-width: 768px) {
+    /* 1. Corregimos el contenedor para que no se desborde en móviles */
+    .contenedor-tarjetas {
+        width: 100%; 
+        grid-template-columns: 1fr; /* Una tarjeta por fila */
+        padding: 0 5%; /* Margen lateral para que no pegue en los bordes */
+        box-sizing: border-box;
+    }
+
+    /* 2. Convertimos la tarjeta en un grid horizontal */
+    .tarjeta-salon {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 20px !important;
+        padding: 30px 3% 30px 3% !important;
+    }
+
+    /* 3. Ajustamos la imagen a la izquierda */
+    .tarjeta-salon img {
+        grid-column: 1;
+        grid-row: 1 / 10; /* TRUCO: Fuerza a la imagen a abarcar todas las filas de texto */
+        width: 100%;
+        height: 150px;
+        margin-top: -15px;
+        margin-bottom: 10px;
+        border-radius: 8px; /* Le da un toque más suave al recorte */
+    }
+
+    /* 4. Colocamos todos los textos en la columna derecha y quitamos el padding gigante */
+    .tarjeta-salon h3,
+    .tarjeta-salon p {
+        grid-column: 2;
+        padding: 0; 
+        margin-bottom: 6px;
+    }
+
+    .tarjeta-salon h3 {
+        font-size: 16px;
+        margin-top: 5px;
+    }
+
+    .tarjeta-salon p {
+        font-size: 12px;
+        line-height: 1.4;
+    }
+    
+    .tarjeta-salon p:last-child {
+        margin-bottom: 0;
+    }
+}
+@media (max-width: 768px) {
+    /* 1. Ocultamos la cabecera tradicional de la tabla */
+    thead {
+        display: none;
+    }
+
+    /* 2. Convertimos la tabla y sus elementos en bloques */
+    table, tbody, tr, td {
+        display: block;
+        width: 100%;
+    }
+
+    /* 3. Transformamos cada fila (tr) en una tarjeta minimalista */
+    tr {
+        background: rgba(255, 255, 255, 0.03); /* Fondo sutil para separar elementos */
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: var(--radio-tarjeta, 8px);
+        margin-bottom: 12px;
+        padding: 16px;
+        
+        /* Magia con Grid: Creamos un diseño de 2 columnas y 2 filas dentro de la tarjeta */
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-template-areas:
+            "tipo cantidad"
+            "fecha ref";
+        gap: 10px;
+    }
+
+    /* 4. Limpiamos los estilos por defecto de las celdas */
+    td {
+        padding: 0 !important;
+        border: none !important;
+        text-align: left;
+    }
+
+    /* --- ASIGNACIÓN DE DATOS A LA TARJETA --- */
+    
+    /* Celda 1: FECHA (Abajo a la izquierda) */
+    td:nth-child(1) {
+        grid-area: fecha;
+        font-size: 12px;
+        color: var(--color-texto-opaco);
+        align-self: center;
+    }
+
+    /* Celda 2: NO. REF (Abajo a la derecha) */
+    td:nth-child(2) {
+        grid-area: ref;
+        font-size: 12px;
+        color: var(--color-texto-opaco);
+        text-align: right;
+    }
+    td:nth-child(2)::before {
+        content: "Ref: "; /* Agrega contexto visual sin tocar el HTML */
+    }
+
+    /* Celda 3: TIPO MOBILIARIO (Arriba a la izquierda, título principal) */
+    td:nth-child(3) {
+        grid-area: tipo;
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--color-texto-blanco);
+        display: flex;
+        align-items: center;
+        gap: 8px; /* Espacio por si tiene la etiqueta "sin stock" al lado */
+    }
+
+    /* Celda 4: CANTIDAD (Arriba a la derecha, número destacado) */
+    td:nth-child(4) {
+        grid-area: cantidad;
+        font-size: 18px;
+        font-weight: 700;
+        text-align: right;
+        color: rgba(70, 196, 190, 1); /* El color verde de tu tema */
+    }
+    td:nth-child(4)::after {
+        content: " unds."; /* Aclara de qué es el número */
+        font-size: 11px;
+        font-weight: 400;
+        color: var(--color-texto-opaco);
+    }
+}

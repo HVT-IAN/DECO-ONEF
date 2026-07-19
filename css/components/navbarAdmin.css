@@ -40,6 +40,10 @@
     .btn-hamburguesa-admin {
         display: flex;
     }
+
+    .navbar-usuario {
+        display: none; /* el perfil se muestra ahora dentro del panel del sidebar en mobile */
+    }
 }
 
 .logo-img {

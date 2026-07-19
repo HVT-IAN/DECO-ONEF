@@ -58,7 +58,7 @@ function pintarTarjetas(solicitudes) {
                     <h3>${s.nombre}</h3>
                     <span class="tiempo-solicitud">${textoTiempoRelativo(s.fechaSolicitud)}</span>
                 </div>
-                <p class="subtitulo-solicitud">${s.tipoEvento} | ${formatearFechaCorta(s.fechaEvento)}</p>
+                <p class="subtitulo-solicitud">${s.tipoEvento} | ${formatearFechaCorta(s.fechaEventoDeseada)}</p>
                 <p class="ideas-solicitud">"${s.ideas}"</p>
             </div>
         </article>
@@ -111,7 +111,7 @@ async function abrirModal(id) {
     document.getElementById('imagenModalSolicitud').src = solicitud.imagen;
     document.getElementById('imagenModalSolicitud').alt = solicitud.nombre;
     document.getElementById('nombreModalSolicitud').textContent = solicitud.nombre;
-    document.getElementById('fechaModalSolicitud').textContent = formatearFechaLarga(solicitud.fechaEvento);
+    document.getElementById('fechaModalSolicitud').textContent = formatearFechaLarga(solicitud.fechaEventoDeseada);
     document.getElementById('salonModalSolicitud').textContent = solicitud.salonDeseado || 'Por definir';
     document.getElementById('tipoModalSolicitud').textContent = solicitud.tipoEvento;
     document.getElementById('correoModalSolicitud').textContent = solicitud.correo;
@@ -149,7 +149,6 @@ async function resolverSolicitud(nuevoEstado) {
     await actualizarEstadoSolicitud(solicitudSeleccionadaId, nuevoEstado);
 
     // Si se aprueba, la solicitud se convierte en un evento real de la agenda
-// Dentro de tu función resolverSolicitud(nuevoEstado) ...
     if (nuevoEstado === 'contactado') {
         const anio = fechaMesSolicitudes.getFullYear();
         const mes = fechaMesSolicitudes.getMonth();
@@ -158,16 +157,20 @@ async function resolverSolicitud(nuevoEstado) {
 
         if (solicitud) {
             await agregarEventoAgenda({
-                solicitudId: solicitud.id, // <--- ESTO ES LA CLAVE PARA EL ENLACE
+                solicitudId: solicitud.id, // <--- ligado a solicitudes.id (ver id_solicitud en schema.sql)
                 titulo: solicitud.nombre,
                 solicitante: solicitud.nombre,
-                fecha: solicitud.fechaEvento,
+                fecha: solicitud.fechaEventoDeseada, // se vuelve "fecha_evento" definitiva al crear el evento
                 horaInicio: 12,
                 horaRecogerMaterial: 9,
                 duracionHoras: 3,
                 tipo: solicitud.tipoEvento,
                 salon: solicitud.salonDeseado,
                 estadoManual: 'auto',      // <--- Estado por defecto
+                // presupuestoTotal arranca en 0: el admin lo captura/edita después
+                // desde el detalle del evento (pantalla de edición aún por construir).
+                // Es el número contra el que se van a restar los abonos registrados.
+                presupuestoTotal: 0,
                 materiales: [solicitud.ideas],
                 imagen: solicitud.imagen
             });

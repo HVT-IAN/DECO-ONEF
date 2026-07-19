@@ -52,6 +52,7 @@ function guardarEventosAgenda(lista) {
 
 /** Usada por agenda.js (vista semanal) */
 async function obtenerEventosPorSemana(desde, hasta) {
+    // TODO(conexión backend): GET /api/eventos?desde=X&hasta=Y
     await simularRetraso(300);
     const todos = obtenerEventosAgendaGuardados();
     return todos.filter(evento => evento.fecha >= desde && evento.fecha <= hasta);
@@ -59,6 +60,7 @@ async function obtenerEventosPorSemana(desde, hasta) {
 
 /** Usada por historial.js (vista mensual, con más detalle) */
 async function obtenerEventosPorMes(anio, mes) {
+    // TODO(conexión backend): GET /api/eventos?anio=X&mes=Y
     await simularRetraso(300);
     const todos = obtenerEventosAgendaGuardados();
     return todos.filter(evento => {
@@ -69,12 +71,14 @@ async function obtenerEventosPorMes(anio, mes) {
 
 /** Usada por historial.js cuando llega desde la Agenda con ?evento=ID */
 async function obtenerEventoPorId(id) {
+    // TODO(conexión backend): GET /api/eventos/{id}
     await simularRetraso(200);
     const todos = obtenerEventosAgendaGuardados();
     return todos.find(evento => evento.id === Number(id)) || null;
 }
 
 async function agregarEventoAgenda(nuevoEvento) {
+    // TODO(conexión backend): POST /api/eventos  (body: nuevoEvento)
     await simularRetraso(300);
     const eventos = obtenerEventosAgendaGuardados();
     const nuevoId = eventos.length > 0 ? Math.max(...eventos.map(e => e.id)) + 1 : 1;
@@ -85,6 +89,7 @@ async function agregarEventoAgenda(nuevoEvento) {
 }
 /** Función para editar un evento existente en el almacenamiento simulado */
 async function editarEventoAgenda(id, datosActualizados) {
+    // TODO(conexión backend): PATCH /api/eventos/{id}  (body: datosActualizados)
     await simularRetraso(300);
     let eventos = obtenerEventosAgendaGuardados();
     
@@ -105,6 +110,11 @@ async function editarEventoAgenda(id, datosActualizados) {
 function calcularEstadoEvento(evento) {
     if (evento.estadoManual === 'curso') return { texto: 'En curso', clase: 'curso' };
     if (evento.estadoManual === 'terminado') return { texto: 'Terminado', clase: 'terminado' };
+    // Faltaba este caso: sin él, un evento cancelado manualmente caía directo
+    // al cálculo por fecha de abajo y podía volver a mostrarse como "En proceso"
+    // o "En curso" — justo el mismo tipo de bug silencioso que ya vimos con
+    // el estado 'pendiente' en el CSS de las tarjetas.
+    if (evento.estadoManual === 'cancelado') return { texto: 'Cancelado', clase: 'cancelado' };
 
     const ahora = new Date();
     const inicio = new Date(evento.fecha + 'T00:00:00');
